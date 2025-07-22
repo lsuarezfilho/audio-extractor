@@ -4,6 +4,7 @@ import uuid
 import subprocess
 
 app = Flask(__name__)
+app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024 
 
 UPLOAD_FOLDER = "uploads"
 AUDIO_FOLDER = "audios"

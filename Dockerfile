@@ -1,16 +1,19 @@
-FROM jrottenberg/ffmpeg:4.4-ubuntu
+FROM python:3.10-slim
 
-# Instalar Python e pip
+# Instalar ffmpeg e dependências básicas
 RUN apt update && \
-    apt install -y python3 python3-pip && \
+    apt install -y ffmpeg curl && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
+# Instalar dependências do Python
 COPY requirements.txt .
-RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
+# Copiar o código da aplicação
 COPY . .
 
-CMD ["python3", "server.py"]
+# Comando de inicialização
+CMD ["python", "server.py"]
